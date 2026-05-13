@@ -6,8 +6,8 @@
   const CHECK_INTERVAL = 4000;
   const MIN_REDIRECT_DELAY = 1500;
 
-  const statusText = document.getElementById('statusText');
-  const enterButton = document.getElementById('enterButton');
+  let statusText = null;
+  let enterButton = null;
 
   const statusMessages = [
     'בודקים שהאתר מוכן...',
@@ -19,8 +19,19 @@
   let pageLoadTime = Date.now();
   let isRedirecting = false;
 
+  function getElements() {
+    if (!statusText) {
+      statusText = document.getElementById('statusText');
+    }
+    if (!enterButton) {
+      enterButton = document.getElementById('enterButton');
+    }
+  }
+
   function rotateStatusText() {
     if (isRedirecting) return;
+
+    getElements();
 
     currentMessageIndex = (currentMessageIndex + 1) % statusMessages.length;
     if (statusText) {
@@ -33,6 +44,8 @@
   }
 
   function showRedirecting() {
+    getElements();
+
     if (statusText) {
       statusText.textContent = 'האתר מוכן! מעביר לאישור ההגעה...';
       statusText.style.color = '#d4a574';
@@ -82,6 +95,8 @@
   }
 
   function init() {
+    getElements();
+
     // Initial health check
     checkHealth();
 
