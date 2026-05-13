@@ -7,7 +7,6 @@
   const MIN_REDIRECT_DELAY = 1500;
 
   let statusText = null;
-  let enterButton = null;
 
   const statusMessages = [
     'בודקים שהאתר מוכן...',
@@ -22,9 +21,6 @@
   function getElements() {
     if (!statusText) {
       statusText = document.getElementById('statusText');
-    }
-    if (!enterButton) {
-      enterButton = document.getElementById('enterButton');
     }
   }
 
@@ -50,10 +46,6 @@
       statusText.textContent = 'האתר מוכן! מעביר לאישור ההגעה...';
       statusText.style.color = '#d4a574';
       statusText.style.fontWeight = '600';
-    }
-    if (enterButton) {
-      enterButton.textContent = 'מעביר...';
-      enterButton.style.opacity = '0.7';
     }
   }
 
@@ -105,15 +97,6 @@
 
     // Rotate status text every 3 seconds
     setInterval(rotateStatusText, 3000);
-
-    // Ensure button always works
-    if (enterButton) {
-      enterButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        isRedirecting = true;
-        window.location.href = TARGET_URL;
-      });
-    }
   }
 
   // Start when DOM is ready
